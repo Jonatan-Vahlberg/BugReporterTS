@@ -15,8 +15,8 @@ export interface AuthState {
   loading: boolean;
 }
 
-class AuthScreen extends React.Component<{}, AuthState> {
-  constructor(props: object) {
+class AuthScreen extends React.Component<AuthProps, AuthState> {
+  constructor(props: AuthProps) {
     super(props);
     this.state = {
       email: '',
