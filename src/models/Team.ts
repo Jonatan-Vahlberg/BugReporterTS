@@ -6,4 +6,5 @@ export default interface Team {
   members: TeamMember[];
   reports: BugReport[];
   uuid: string;
+  description: string;
 }
