@@ -16,7 +16,7 @@ export interface AdminState {
   team?: Team;
 }
 
-class CreateNewTeam extends React.Component<AdminProps, AdminState> {
+class CreateNewTeamScreen extends React.Component<AdminProps, AdminState> {
   constructor(props: AdminProps) {
     super(props);
     const { navigation } = this.props;
@@ -43,4 +43,4 @@ class CreateNewTeam extends React.Component<AdminProps, AdminState> {
   }
 }
 
-export default CreateNewTeam;
+export default CreateNewTeamScreen;
