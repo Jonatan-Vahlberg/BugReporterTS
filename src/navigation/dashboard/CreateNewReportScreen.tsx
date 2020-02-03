@@ -3,6 +3,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
 import TeamMember from '../../models/TeamMember';
 import { SeverityValue } from '../../models/BugReport';
+import Navbar from '../../components/common/Navbar';
 
 export interface ReportProps {
   navigation: NavigationStackProp;
@@ -31,7 +32,13 @@ class CreateNewReportScreen extends React.Component<ReportProps, ReportState> {
     };
   }
   render() {
-    return null;
+    return (
+      <Navbar
+        title="Create new report"
+        navigation={this.props.navigation}
+        root={false}
+      />
+    );
   }
 }
 

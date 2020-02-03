@@ -16,43 +16,67 @@ import TeamDetailScreen from './teams/TeamDetailScreen';
 import TeamsAdminScreen from './teams/TeamsAdminScreen';
 import CreateNewTeamScreen from './teams/CreateNewTeamScreen';
 
-const dashboardStack = createStackNavigator({
-  dashboard: {
-    screen: DashboardScreen,
+import NavigationPaths from './NavigationPaths';
+
+const dashboardStack = createStackNavigator(
+  {
+    [NavigationPaths.dashboard]: {
+      screen: DashboardScreen,
+    },
+    [NavigationPaths.createReport]: {
+      screen: CreateNewReportScreen,
+    },
+    [NavigationPaths.viewReport]: {
+      screen: ViewReportScreen,
+    },
   },
-  createReport: {
-    screen: CreateNewReportScreen,
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
   },
-  viewReport: {
-    screen: ViewReportScreen,
-  },
-});
+);
 
 const teamsStack = createStackNavigator({
-  teamsList: {
+  [NavigationPaths.teamsList]: {
     screen: TeamsListScreen,
   },
-  teamDetail: {
+  [NavigationPaths.teamsDetail]: {
     screen: TeamDetailScreen,
   },
-  teamsAdmin: {
+  [NavigationPaths.teamsAdmin]: {
     screen: TeamsAdminScreen,
   },
-  teamsCreateNew: {
+  [NavigationPaths.teamsCreate]: {
     screen: CreateNewTeamScreen,
   },
 });
 
 const profileStack = createStackNavigator({
-  profile: {
+  [NavigationPaths.profile]: {
     screen: ProfileScreen,
   },
 });
 
 const drawerNavigator = createDrawerNavigator({
-  dashboardStack: dashboardStack,
-  teamsStack: teamsStack,
-  profileStack: profileStack,
+  dashboardStack: {
+    screen: dashboardStack,
+    navigationOptions: {
+      title: 'Dashboard',
+    },
+  },
+  teamsStack: {
+    screen: teamsStack,
+    navigationOptions: {
+      title: 'Teams',
+    },
+  },
+  profileStack: {
+    screen: profileStack,
+    navigationOptions: {
+      title: 'Profile',
+    },
+  },
 });
 
 const baseNavigator = createStackNavigator(
@@ -65,6 +89,7 @@ const baseNavigator = createStackNavigator(
     },
   },
   {
+    initialRouteName: 'mainDrawer',
     defaultNavigationOptions: {
       headerShown: false,
     },
