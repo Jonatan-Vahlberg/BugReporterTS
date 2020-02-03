@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import Profile from './src/models/Profile';
 import Team from './src/models/Team';
 import { ApplicationContext } from './src/context/ApplicationContext';
 import BugReport from './src/models/BugReport';
+import Navigator from './src/navigation';
 
 type AppProps = {};
 
@@ -14,7 +15,7 @@ type AppState = {
   settings?: object;
 };
 
-class App extends React.Component<AppProps, AppState> {
+export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
@@ -53,7 +54,8 @@ class App extends React.Component<AppProps, AppState> {
           settings: this.state.settings,
         }}
       >
-        {null}
+        <StatusBar barStyle="dark-content" />
+        <Navigator />
       </ApplicationContext.Provider>
     );
   }
