@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
-import Navbar from '../../components/common/Navbar';
+import { Navbar } from '../../components/common';
 import { View, Button } from 'react-native';
 import NavigationPaths from '../NavigationPaths';
 
@@ -18,7 +18,7 @@ class DashboardScreen extends React.Component<DashProps, DashState> {
   }
   render() {
     return (
-      <View>
+      <View style={{ backgroundColor: '#fdd' }}>
         <Navbar
           title="Dashboard"
           navigation={this.props.navigation}

@@ -74,4 +74,4 @@ const navStyles = StyleSheet.create({
   },
 });
 
-export default Navbar;
+export { Navbar };
