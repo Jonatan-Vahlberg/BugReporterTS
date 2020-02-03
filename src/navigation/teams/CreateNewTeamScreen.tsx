@@ -2,9 +2,10 @@ import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
 import TeamMember from '../../models/TeamMember';
-type Params = { update: boolean; team?: Team };
+import Navbar from '../../components/common/Navbar';
+export type NewTeamParams = { update: boolean; team?: Team };
 export interface AdminProps {
-  navigation: NavigationStackProp<Params>;
+  navigation: NavigationStackProp<NewTeamParams>;
   [x: string]: any;
 }
 
@@ -39,7 +40,13 @@ class CreateNewTeamScreen extends React.Component<AdminProps, AdminState> {
     }
   }
   render() {
-    return null;
+    return (
+      <Navbar
+        title="Create new team"
+        navigation={this.props.navigation}
+        root={false}
+      />
+    );
   }
 }
 

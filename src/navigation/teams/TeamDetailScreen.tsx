@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
+import Navbar from '../../components/common/Navbar';
 type Params = { team: Team };
 export interface DetailProps {
   navigation: NavigationStackProp<Params>;
@@ -15,7 +16,13 @@ class TeamDetailScreen extends React.Component<DetailProps, DetailState> {
     this.state = {};
   }
   render() {
-    return null;
+    return (
+      <Navbar
+        title="TEAM_PLACEHOLDER"
+        navigation={this.props.navigation}
+        root={false}
+      />
+    );
   }
 }
 

@@ -15,7 +15,7 @@ export interface NavProps {
   navigation:
     | NavigationDrawerProp
     | NavigationStackProp
-    | NavigationStackProp<Params>;
+    | NavigationStackProp<{}>;
   title?: string;
   root: boolean;
   color?: string;

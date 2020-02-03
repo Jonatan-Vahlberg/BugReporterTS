@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
+import Navbar from '../../components/common/Navbar';
+import { Button } from 'react-native';
+import NavigationPaths from '../NavigationPaths';
+import { NavigationActions } from 'react-navigation';
 
 export interface AuthProps {
   navigation: NavigationStackProp;
@@ -28,7 +32,20 @@ class AuthScreen extends React.Component<AuthProps, AuthState> {
     };
   }
   render() {
-    return null;
+    return (
+      <Button
+        title="Login"
+        onPress={() =>
+          this.props.navigation.navigate(
+            NavigationPaths.drawerStack,
+            {},
+            NavigationActions.navigate({
+              routeName: NavigationPaths.dashboard,
+            }),
+          )
+        }
+      />
+    );
   }
 }
 

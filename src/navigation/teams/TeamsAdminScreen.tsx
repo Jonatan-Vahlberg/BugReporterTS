@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
+import Navbar from '../../components/common/Navbar';
 
 export interface AdminProps {
   navigation: NavigationStackProp;
@@ -15,7 +16,13 @@ class TeamsAdminScreen extends React.Component<AdminProps, AdminState> {
     this.state = {};
   }
   render() {
-    return null;
+    return (
+      <Navbar
+        title="Join/Create team"
+        navigation={this.props.navigation}
+        root={false}
+      />
+    );
   }
 }
 

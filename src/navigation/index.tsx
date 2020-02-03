@@ -37,26 +37,40 @@ const dashboardStack = createStackNavigator(
   },
 );
 
-const teamsStack = createStackNavigator({
-  [NavigationPaths.teamsList]: {
-    screen: TeamsListScreen,
+const teamsStack = createStackNavigator(
+  {
+    [NavigationPaths.teamsList]: {
+      screen: TeamsListScreen,
+    },
+    [NavigationPaths.teamsDetail]: {
+      screen: TeamDetailScreen,
+    },
+    [NavigationPaths.teamsAdmin]: {
+      screen: TeamsAdminScreen,
+    },
+    [NavigationPaths.teamsCreate]: {
+      screen: CreateNewTeamScreen,
+    },
   },
-  [NavigationPaths.teamsDetail]: {
-    screen: TeamDetailScreen,
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
   },
-  [NavigationPaths.teamsAdmin]: {
-    screen: TeamsAdminScreen,
-  },
-  [NavigationPaths.teamsCreate]: {
-    screen: CreateNewTeamScreen,
-  },
-});
+);
 
-const profileStack = createStackNavigator({
-  [NavigationPaths.profile]: {
-    screen: ProfileScreen,
+const profileStack = createStackNavigator(
+  {
+    [NavigationPaths.profile]: {
+      screen: ProfileScreen,
+    },
   },
-});
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
+  },
+);
 
 const drawerNavigator = createDrawerNavigator({
   dashboardStack: {
@@ -81,15 +95,15 @@ const drawerNavigator = createDrawerNavigator({
 
 const baseNavigator = createStackNavigator(
   {
-    auth: {
+    [NavigationPaths.authStack]: {
       screen: AuthScreen,
     },
-    mainDrawer: {
+    [NavigationPaths.drawerStack]: {
       screen: drawerNavigator,
     },
   },
   {
-    initialRouteName: 'mainDrawer',
+    initialRouteName: NavigationPaths.drawerStack,
     defaultNavigationOptions: {
       headerShown: false,
     },

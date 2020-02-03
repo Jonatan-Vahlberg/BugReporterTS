@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
+import Navbar from '../../components/common/Navbar';
+import { View, Button } from 'react-native';
+import NavigationPaths from '../NavigationPaths';
 
 export interface ListProps {
   navigation: NavigationStackProp;
@@ -14,7 +17,29 @@ class TeamsListScreen extends React.Component<ListProps, ListState> {
     this.state = {};
   }
   render() {
-    return null;
+    return (
+      <View>
+        <Navbar title="Your Teams" navigation={this.props.navigation} root />
+        <Button
+          title="Create"
+          onPress={() =>
+            this.props.navigation.navigate(NavigationPaths.teamsCreate)
+          }
+        />
+        <Button
+          title="view"
+          onPress={() =>
+            this.props.navigation.navigate(NavigationPaths.teamsDetail)
+          }
+        />
+        <Button
+          title="admin"
+          onPress={() =>
+            this.props.navigation.navigate(NavigationPaths.teamsAdmin)
+          }
+        />
+      </View>
+    );
   }
 }
 

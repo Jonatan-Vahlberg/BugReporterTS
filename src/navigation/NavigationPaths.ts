@@ -8,4 +8,6 @@ export default {
   teamsAdmin: 'TEAMS_ADMIN',
   teamsDetail: 'TEAMS_DETAIL',
   teamsCreate: 'TEAMS_CREATE',
+  authStack: 'AUTH_STACK',
+  drawerStack: 'DRAWER_STACK',
 };
