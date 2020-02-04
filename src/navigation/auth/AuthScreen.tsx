@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import { Button } from 'react-native';
 import NavigationPaths from '../NavigationPaths';
 import { NavigationActions } from 'react-navigation';
 import {
@@ -9,7 +8,11 @@ import {
   TextInput,
   Navbar,
   LinkText,
+  Button,
+  CheckBox,
 } from '../../components/common';
+import { Text, View } from 'react-native';
+import metrics from '../../static/metrics';
 
 export interface AuthProps {
   navigation: NavigationStackProp;
@@ -23,6 +26,7 @@ export interface AuthState {
   lastName: string;
   stayLoggedIn: boolean;
   loading: boolean;
+  showLogin: boolean;
 }
 
 class AuthScreen extends React.Component<AuthProps, AuthState> {
@@ -35,36 +39,59 @@ class AuthScreen extends React.Component<AuthProps, AuthState> {
       lastName: '',
       stayLoggedIn: false,
       loading: false,
+      showLogin: false,
     };
   }
   render() {
     return (
       <ScreenComponent>
-        <Card label="Login">
-          <TextInput
-            name="email"
-            value={this.state.email}
-            setValue={this.setValue}
-          />
-          <TextInput
-            name="password"
-            value={this.state.password}
-            setValue={this.setValue}
-          />
-          <LinkText text="register?" />
-        </Card>
-        <Button
-          title="Login"
-          onPress={() =>
-            this.props.navigation.navigate(
-              NavigationPaths.drawerStack,
-              {},
-              NavigationActions.navigate({
-                routeName: NavigationPaths.dashboard,
-              }),
-            )
-          }
-        />
+        <View
+          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+        >
+          <Card label={this.state.showLogin ? 'Login' : 'Register'}>
+            {this.state.showLogin ? this.renderLogin() : this.renderRegister()}
+
+            <View
+              style={{
+                justifyContent: 'flex-start',
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <CheckBox
+                checked={this.state.stayLoggedIn}
+                name="stayLoggedIn"
+                setValue={() =>
+                  this.setValue('stayLoggedIn', !this.state.stayLoggedIn)
+                }
+                size={30}
+              />
+              <Text>Stay logged in?</Text>
+            </View>
+            <LinkText
+              action={() => this.setValue('showLogin', !this.state.showLogin)}
+              text={this.state.showLogin ? 'Register?' : 'Login?'}
+            />
+          </Card>
+          <View>
+            <Button
+              extraStyle={{ height: 50, width: metrics.screenWidth * 0.6 }}
+              rounded
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontWeight: '700',
+                  fontSize: 25,
+                  letterSpacing: 1.4,
+                }}
+              >
+                {this.state.showLogin ? 'Login' : 'Register'}
+              </Text>
+            </Button>
+          </View>
+        </View>
       </ScreenComponent>
     );
   }
@@ -72,8 +99,39 @@ class AuthScreen extends React.Component<AuthProps, AuthState> {
     this.setState({ [key]: value } as Pick<AuthState, keyof AuthState>);
   };
 
-  renderLogin = () => {};
-  renderRegister = () => {};
+  renderLogin = () => {
+    return (
+      <React.Fragment>
+        <TextInput
+          name="email"
+          value={this.state.email}
+          setValue={this.setValue}
+        />
+        <TextInput
+          name="password"
+          value={this.state.password}
+          setValue={this.setValue}
+        />
+      </React.Fragment>
+    );
+  };
+  renderRegister = () => {
+    return (
+      <React.Fragment>
+        <TextInput
+          name="firstname"
+          value={this.state.email}
+          setValue={this.setValue}
+        />
+        <TextInput
+          name="lastname"
+          value={this.state.password}
+          setValue={this.setValue}
+        />
+        {this.renderLogin()}
+      </React.Fragment>
+    );
+  };
 }
 
 export default AuthScreen;
