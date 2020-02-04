@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
-import TeamMember from '../../models/TeamMember';
-import Navbar from '../../components/common/Navbar';
+import { Navbar, ScreenComponent } from '../../components/common';
 import { View, Button } from 'react-native';
 import NavigationPaths from '../NavigationPaths';
 import { NavigationActions } from 'react-navigation';
@@ -22,7 +21,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileState> {
   }
   render() {
     return (
-      <View>
+      <ScreenComponent>
         <Navbar title="Your profile" navigation={this.props.navigation} root />
         <Button
           title="Log out"
@@ -34,7 +33,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileState> {
             )
           }
         />
-      </View>
+      </ScreenComponent>
     );
   }
 }

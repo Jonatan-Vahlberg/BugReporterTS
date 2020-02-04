@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import Navbar from '../../components/common/Navbar';
+import { Navbar } from '../../components/common';
 import { View, Button } from 'react-native';
 import NavigationPaths from '../NavigationPaths';
 

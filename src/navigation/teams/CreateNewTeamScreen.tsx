@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
 import TeamMember from '../../models/TeamMember';
-import Navbar from '../../components/common/Navbar';
+import { Navbar } from '../../components/common';
 export type NewTeamParams = { update: boolean; team?: Team };
 export interface AdminProps {
   navigation: NavigationStackProp<NewTeamParams>;
