@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
-import { Navbar } from '../../components/common';
+import { Navbar, CheckBox } from '../../components/common';
 import { View, Button } from 'react-native';
 import NavigationPaths from '../NavigationPaths';
 
@@ -10,15 +10,18 @@ export interface DashProps {
   [x: string]: any;
 }
 
-export interface DashState {}
+export interface DashState {
+  stayLoggedIn: boolean;
+}
 
 class DashboardScreen extends React.Component<DashProps, DashState> {
   constructor(props: DashProps) {
     super(props);
+    this.state = { stayLoggedIn: false };
   }
   render() {
     return (
-      <View style={{ backgroundColor: '#fdd' }}>
+      <View>
         <Navbar
           title="Dashboard"
           navigation={this.props.navigation}
@@ -36,10 +39,20 @@ class DashboardScreen extends React.Component<DashProps, DashState> {
             this.props.navigation.navigate(NavigationPaths.viewReport)
           }
         />
+        <CheckBox
+          name="stayLoggedIn"
+          checked={this.state.stayLoggedIn}
+          setValue={this.setValue}
+        />
       </View>
     );
   }
+  setValue = (key: keyof DashState, value: any | string | boolean) => {
+    console.log(value);
 
+    this.setState({ [key]: value } as Pick<DashState, keyof DashState>);
+    console.log(this.state.stayLoggedIn);
+  };
   renderDashboardTeam = () => {};
   renderDashboardNoTeam = (featuredTeam: Team) => {};
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
-import Navbar from '../../components/common/Navbar';
+import { Navbar } from '../../components/common';
 type Params = { team: Team };
 export interface DetailProps {
   navigation: NavigationStackProp<Params>;

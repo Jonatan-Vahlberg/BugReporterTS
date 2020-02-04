@@ -3,10 +3,18 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
 import TeamMember from '../../models/TeamMember';
 import { SeverityValue } from '../../models/BugReport';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { titleRules } from '../../static/rules';
 
-import { TextInput, FormError, Navbar, Button } from '../../components/common';
+import {
+  TextInput,
+  FormError,
+  Navbar,
+  Button,
+  FormWrapper,
+  ScreenComponent,
+} from '../../components/common';
+import metrics from '../../static/metrics';
 
 export interface ReportProps {
   navigation: NavigationStackProp;
@@ -38,41 +46,49 @@ class CreateNewReportScreen extends React.Component<ReportProps, ReportState> {
   }
   render() {
     return (
-      <View>
+      <ScreenComponent>
         <Navbar
           title="Create new report"
           navigation={this.props.navigation}
           root={false}
         />
-        <TextInput
-          value={this.state.title}
-          name="title"
-          setValue={this.setValue}
-        />
-        <FormError
-          rules={{
-            title: titleRules,
-          }}
-          values={[{ name: 'title', value: this.state.title }]}
-          visible={false}
-        />
-        <TextInput
-          value={this.state.content}
-          name="content"
-          setValue={this.setValue}
-          numberOfLines={8}
-        />
-        <Text>Team options</Text>
-        <Text>Advanced options</Text>
-        <TextInput
-          value={this.state.labels}
-          name="labels"
-          setValue={this.setValue}
-        />
-        <Button>
-          <Text>Create</Text>
-        </Button>
-      </View>
+        <ScrollView>
+          <TextInput
+            value={this.state.title}
+            name="title"
+            setValue={this.setValue}
+          />
+          <FormError
+            rules={{
+              title: titleRules,
+            }}
+            values={[{ name: 'title', value: this.state.title }]}
+            visible={false}
+          />
+          <TextInput
+            value={this.state.content}
+            name="content"
+            setValue={this.setValue}
+            numberOfLines={8}
+          />
+          <FormWrapper>
+            <Text>Team options</Text>
+          </FormWrapper>
+          <FormWrapper>
+            <Text>Advanced options</Text>
+          </FormWrapper>
+          <TextInput
+            value={this.state.labels}
+            name="labels"
+            setValue={this.setValue}
+          />
+        </ScrollView>
+        <View style={styles.buttonContainer}>
+          <Button>
+            <Text style={styles.buttonTextStyle}>Create Report</Text>
+          </Button>
+        </View>
+      </ScreenComponent>
     );
   }
 
@@ -80,5 +96,20 @@ class CreateNewReportScreen extends React.Component<ReportProps, ReportState> {
     this.setState({ [key]: value } as Pick<ReportState, keyof ReportState>);
   };
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    position: 'absolute',
+    bottom: -15,
+    left: -15,
+    right: -15,
+  },
+  buttonTextStyle: {
+    fontWeight: '700',
+    fontSize: 25,
+    color: '#fff',
+    letterSpacing: 1.4,
+  },
+});
 
 export default CreateNewReportScreen;

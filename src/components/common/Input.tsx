@@ -68,13 +68,12 @@ const styles = StyleSheet.create({
   containerStyle: {
     justifyContent: 'flex-start',
     flex: 1,
-    backgroundColor: colors.lightGreyBackground,
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
   inputStyle: {
     flexDirection: 'row',
-    backgroundColor: colors.backGroundColor,
+    backgroundColor: colors.lightGreyBackground,
     paddingVertical: 5,
     marginTop: 5,
     paddingHorizontal: 5,
