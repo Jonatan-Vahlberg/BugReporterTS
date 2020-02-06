@@ -77,7 +77,7 @@ const generateStyles = (color: string) => {
       marginHorizontal: 10,
       marginVertical: 15,
       flexDirection: 'row',
-      flex: 1,
+      width: '100%',
     },
     buttonSpinner: {
       minHeight: 50,
