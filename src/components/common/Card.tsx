@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
     marginVertical: 10,
     marginBottom: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 0,
     borderRadius: 2,
   },
   labelView: {

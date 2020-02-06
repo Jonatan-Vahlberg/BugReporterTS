@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import Team from '../../models/Team';
-import { Navbar, CheckBox } from '../../components/common';
+import { Navbar, CheckBox, ScreenComponent } from '../../components/common';
 import { View, Button } from 'react-native';
 import NavigationPaths from '../NavigationPaths';
+import BugReportListCard from '../../components/bugreport/BugReportListCard';
+import BugReport, { SeverityValue } from '../../models/BugReport';
+import metrics from '../../static/metrics';
 
 export interface DashProps {
   navigation: NavigationStackProp;
@@ -21,7 +24,7 @@ class DashboardScreen extends React.Component<DashProps, DashState> {
   }
   render() {
     return (
-      <View>
+      <ScreenComponent>
         <Navbar
           title="Dashboard"
           navigation={this.props.navigation}
@@ -39,22 +42,79 @@ class DashboardScreen extends React.Component<DashProps, DashState> {
             this.props.navigation.navigate(NavigationPaths.viewReport)
           }
         />
-        <CheckBox
-          name="stayLoggedIn"
-          checked={this.state.stayLoggedIn}
-          setValue={this.setValue}
-        />
-      </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: metrics.screenWidth,
+          }}
+        >
+          <BugReportListCard
+            report={{
+              uuid: 'asdgzijccnoaj',
+              title: 'Crashing on teams screen',
+              content: `var SampleNamespace = {
+              "init" : function() {…},
+              "destroy" : function() {…},
+              "defaultValue" : "…",
+              "NestedNamespace" : {
+                "member" : "..."
+              }
+            }`,
+              reportDate: new Date().toISOString(),
+              severity: SeverityValue.CATASTROPHIC,
+              closed: false,
+            }}
+            navigateTo={this.navigateToViewReport}
+          />
+          <BugReportListCard
+            report={{
+              uuid: 'asdgzijsccnoaj',
+              title: 'Minor artifact glitch',
+              content: `<ScreenComponent>
+              <Navbar
+                title="Create new report"
+                navigation={this.props.navigation}
+                root={false}
+              />
+              <ScrollView>
+                <TextInput
+                  value={this.state.title}
+                  name="title"
+                  setValue={this.setValue}
+                />
+                <FormError
+                  rules={{
+                    title: titleRules,
+                  }}
+                  values={[{ name: 'title', value: this.state.title }]}
+                  visible={false}
+                />
+                >`,
+              reportDate: new Date().toISOString(),
+              dueDate: new Date().toISOString(),
+              severity: SeverityValue.LOW,
+              closed: true,
+            }}
+            navigateTo={this.navigateToViewReport}
+          />
+        </View>
+      </ScreenComponent>
     );
   }
   setValue = (key: keyof DashState, value: any | string | boolean) => {
     console.log(value);
 
     this.setState({ [key]: value } as Pick<DashState, keyof DashState>);
-    console.log(this.state.stayLoggedIn);
   };
   renderDashboardTeam = () => {};
   renderDashboardNoTeam = (featuredTeam: Team) => {};
+
+  navigateToViewReport = (bugReport: BugReport) => {
+    this.props.navigation.navigate(NavigationPaths.viewReport, {
+      report: bugReport,
+    });
+  };
 }
 
 export default DashboardScreen;

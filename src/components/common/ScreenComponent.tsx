@@ -4,7 +4,12 @@ import metrics from '../../static/metrics';
 
 const ScreenComponent: React.FC = props => {
   return (
-    <View style={{ flex: 1, width: metrics.screenWidth }}>
+    <View
+      style={{
+        width: metrics.screenWidth,
+        height: metrics.screenHeight,
+      }}
+    >
       {props.children}
     </View>
   );
