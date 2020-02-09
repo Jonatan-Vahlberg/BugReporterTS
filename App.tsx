@@ -1,10 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
+import * as firebase from 'firebase';
+
 import Profile from './src/models/Profile';
 import Team from './src/models/Team';
 import { ApplicationContext } from './src/context/ApplicationContext';
 import BugReport from './src/models/BugReport';
 import Navigator from './src/navigation';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBhvEvFrGhYXHeLUn6VEEfaPATvjfLXo4I',
+  authDomain: 'bug-tracker-17906.firebaseapp.com',
+  databaseURL: 'https://bug-tracker-17906.firebaseio.com',
+  projectId: 'bug-tracker-17906',
+  storageBucket: 'bug-tracker-17906.appspot.com',
+  messagingSenderId: '825475753127',
+  appId: '1:825475753127:web:c6ba0b8f33187bb76ae782',
+  measurementId: 'G-S4CNHEGYH4',
+};
+firebase.initializeApp(firebaseConfig);
 
 type AppProps = {};
 
@@ -34,6 +48,7 @@ export default class App extends React.Component<AppProps, AppState> {
           teams: this.state.teams,
           featuredTeam: this.state.featuredTeam,
           profileActions: {
+            registerUser: this.registerUser,
             createProfile: this.createProfile,
             getProfile: this.getProfile,
             updateProfile: this.updateProfile,
@@ -61,9 +76,22 @@ export default class App extends React.Component<AppProps, AppState> {
   }
 
   //* PROFILE ACTIONS
+  registerUser = async (
+    email: string,
+    password: string,
+    setLocalState?: Function,
+  ) => {
+    //setLocalState();
+    const {
+      user,
+    }: firebase.auth.UserCredential = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+    console.log(user);
+  };
   createProfile = async (profile: Profile) => {
     this.setState({ profile });
-    //TODO: firebase create profile
+    //TODO: firebase setProfile
   };
   getProfile = async (uuid: string) => {
     //TODO: firebase getProfile

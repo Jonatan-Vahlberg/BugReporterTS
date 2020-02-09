@@ -11,8 +11,9 @@ import {
   Button,
   CheckBox,
 } from '../../components/common';
-import { Text, View } from 'react-native';
+import { Text, View, TextInput as Input } from 'react-native';
 import metrics from '../../static/metrics';
+import { ApplicationContext } from '../../context/ApplicationContext';
 
 export interface AuthProps {
   navigation: NavigationStackProp;
@@ -44,55 +45,73 @@ class AuthScreen extends React.Component<AuthProps, AuthState> {
   }
   render() {
     return (
-      <ScreenComponent>
-        <View
-          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
-        >
-          <Card label={this.state.showLogin ? 'Login' : 'Register'}>
-            {this.state.showLogin ? this.renderLogin() : this.renderRegister()}
-
+      <ApplicationContext.Consumer>
+        {context => (
+          <ScreenComponent>
             <View
               style={{
-                justifyContent: 'flex-start',
-                flexDirection: 'row',
+                justifyContent: 'center',
                 alignItems: 'center',
-                width: '100%',
+                flex: 1,
               }}
             >
-              <CheckBox
-                checked={this.state.stayLoggedIn}
-                name="stayLoggedIn"
-                setValue={() =>
-                  this.setValue('stayLoggedIn', !this.state.stayLoggedIn)
-                }
-                size={30}
-              />
-              <Text>Stay logged in?</Text>
+              <Card label={this.state.showLogin ? 'Login' : 'Register'}>
+                {this.state.showLogin
+                  ? this.renderLogin()
+                  : this.renderRegister()}
+
+                <View
+                  style={{
+                    justifyContent: 'flex-start',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    width: '100%',
+                  }}
+                >
+                  <CheckBox
+                    checked={this.state.stayLoggedIn}
+                    name="stayLoggedIn"
+                    setValue={() =>
+                      this.setValue('stayLoggedIn', !this.state.stayLoggedIn)
+                    }
+                    size={30}
+                  />
+                  <Text>Stay logged in?</Text>
+                </View>
+                <LinkText
+                  action={() =>
+                    this.setValue('showLogin', !this.state.showLogin)
+                  }
+                  text={this.state.showLogin ? 'Register?' : 'Login?'}
+                />
+              </Card>
+              <View>
+                <Button
+                  action={() =>
+                    context.profileActions.registerUser(
+                      this.state.email,
+                      this.state.password,
+                    )
+                  }
+                  extraStyle={{ height: 50, width: metrics.screenWidth * 0.6 }}
+                  rounded
+                >
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontWeight: '700',
+                      fontSize: 25,
+                      letterSpacing: 1.4,
+                    }}
+                  >
+                    {this.state.showLogin ? 'Login' : 'Register'}
+                  </Text>
+                </Button>
+              </View>
             </View>
-            <LinkText
-              action={() => this.setValue('showLogin', !this.state.showLogin)}
-              text={this.state.showLogin ? 'Register?' : 'Login?'}
-            />
-          </Card>
-          <View>
-            <Button
-              extraStyle={{ height: 50, width: metrics.screenWidth * 0.6 }}
-              rounded
-            >
-              <Text
-                style={{
-                  color: '#fff',
-                  fontWeight: '700',
-                  fontSize: 25,
-                  letterSpacing: 1.4,
-                }}
-              >
-                {this.state.showLogin ? 'Login' : 'Register'}
-              </Text>
-            </Button>
-          </View>
-        </View>
-      </ScreenComponent>
+          </ScreenComponent>
+        )}
+      </ApplicationContext.Consumer>
     );
   }
   setValue = (key: keyof AuthState, value: any | string) => {
@@ -102,15 +121,14 @@ class AuthScreen extends React.Component<AuthProps, AuthState> {
   renderLogin = () => {
     return (
       <React.Fragment>
-        <TextInput
-          name="email"
+        <Input
           value={this.state.email}
-          setValue={this.setValue}
+          onChangeText={email => this.setValue('email', email)}
         />
-        <TextInput
-          name="password"
+
+        <Input
           value={this.state.password}
-          setValue={this.setValue}
+          onChangeText={password => this.setValue('password', password)}
         />
       </React.Fragment>
     );
@@ -120,12 +138,12 @@ class AuthScreen extends React.Component<AuthProps, AuthState> {
       <React.Fragment>
         <TextInput
           name="firstname"
-          value={this.state.email}
+          value={this.state.firstName}
           setValue={this.setValue}
         />
         <TextInput
           name="lastname"
-          value={this.state.password}
+          value={this.state.lastName}
           setValue={this.setValue}
         />
         {this.renderLogin()}
