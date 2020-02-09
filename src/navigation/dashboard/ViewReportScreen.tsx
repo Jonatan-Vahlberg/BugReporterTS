@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import Team from '../../models/Team';
-import TeamMember from '../../models/TeamMember';
 import BugReport, { SeverityValue } from '../../models/BugReport';
-import Navbar from '../../components/common/Navbar';
+import { Navbar, ScreenComponent } from '../../components/common';
+import BugReportListCard from '../../components/bugreport/BugReportListCard';
+import { View } from 'react-native';
+import CommentWritingBox from '../../components/bugreport/CommentWritingBox';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export type Params = { report: BugReport };
 
@@ -24,14 +26,33 @@ class ViewReportScreen extends React.Component<ReportProps, ReportState> {
     };
   }
   render() {
+    const report = this.props.navigation.getParam('report');
     return (
-      <Navbar
-        navigation={this.props.navigation}
-        title="REPORT: #78247292"
-        root={false}
-      />
+      <ScreenComponent>
+        <Navbar navigation={this.props.navigation} title="" root={false} />
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+          <ScrollView>
+            <BugReportListCard report={report} detail={true} />
+            <CommentWritingBox
+              setValue={this.setValue}
+              name="comment"
+              value={this.state.comment}
+            />
+          </ScrollView>
+        </View>
+      </ScreenComponent>
     );
   }
+
+  setValue = (name: keyof ReportState, value: string) => {
+    this.setState({ [name]: value } as Pick<ReportState, keyof ReportState>);
+  };
 }
 
 export default ViewReportScreen;

@@ -11,7 +11,7 @@ export default interface BugReport {
   dueDate?: string; //ISODATESTRING
   comments?: Comment[];
   closed: boolean;
-  reportedBy: string;
+  reportedBy?: string;
 }
 
 export enum SeverityValue {
